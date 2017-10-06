@@ -16,15 +16,18 @@ export default class Pawn extends Piece {
         }else{ 
             newLocation = new Square(location.row-1,location.col);
         }
-        locations.push(newLocation);
-        if (board.findPiece(this).row===1 || board.findPiece(this).row===6) {
-            if (this.player === Player.WHITE) {
-                newLocation = new Square(location.row+2,location.col);
-            }else{ 
-                newLocation = new Square(location.row-2,location.col);
-            }
+        if (!board.getPiece(newLocation)) {
             locations.push(newLocation);
-        }
+            if (board.findPiece(this).row===1 || board.findPiece(this).row===6) {
+                if (this.player === Player.WHITE) {
+                    newLocation = new Square(location.row+2,location.col);
+                }else{ 
+                    newLocation = new Square(location.row-2,location.col);
+                }
+                if (!board.getPiece(newLocation)) {
+                    locations.push(newLocation);
+                }
+            }}
         return this.filterInvalidMoves(locations);
         // return new Array(0);
     }
