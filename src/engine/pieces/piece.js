@@ -11,4 +11,11 @@ export default class Piece {
         const currentSquare = board.findPiece(this);
         board.movePiece(currentSquare, newSquare);
     }
+    filterInvalidMoves(movesList){
+        movesList = movesList.filter(move => move.row<8);
+        movesList = movesList.filter(move => move.row>=0);
+        movesList = movesList.filter(move => move.col>=0);
+        movesList = movesList.filter(move => move.col<8);
+        return movesList;
+    }
 }
