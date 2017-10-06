@@ -33,27 +33,27 @@ export default class Piece {
         
     }
 
-    bishopMoves(board, location){
+    bishopMoves(board, location, distance){
         const locations = [];
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row + i, location.col + i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row - i, location.col + i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row + i, location.col - i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row - i, location.col - i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
@@ -63,27 +63,27 @@ export default class Piece {
 
     }
 
-    rookMoves(board, location){      
+    rookMoves(board, location, distance){      
         const locations = [];
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row + i, location.col);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row - i, location.col);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row, location.col + i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);
             } else { break; }
         }
-        for (let i = 1; i < 8; i++) {
+        for (let i = 1; i < distance; i++) {
             const newLocation = new Square(location.row, location.col - i);
             if (this.isMoveValid(board, newLocation)) {
                 locations.push(newLocation);

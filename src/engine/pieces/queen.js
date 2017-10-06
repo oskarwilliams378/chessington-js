@@ -1,6 +1,4 @@
 import Piece from './piece';
-import Square from '../square';
-import Bishop from './bishop';
 
 export default class Queen extends Piece {
     constructor(player) {
@@ -9,7 +7,7 @@ export default class Queen extends Piece {
 
     getAvailableMoves(board) {
         const location = board.findPiece(this);
-        const locations = this.bishopMoves(board, location).concat(this.rookMoves(board, location));
+        const locations = this.bishopMoves(board, location, 8).concat(this.rookMoves(board, location, 8));
         return locations;
     }
 }
