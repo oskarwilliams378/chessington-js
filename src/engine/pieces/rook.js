@@ -22,6 +22,6 @@ export default class Rook extends Piece {
             }     
         }
 
-        return locations;
+        return this.filterInvalidMoves(locations);
     }
 }

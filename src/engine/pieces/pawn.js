@@ -25,13 +25,8 @@ export default class Pawn extends Piece {
             }
             locations.push(newLocation);
         }
-        return locations;
+        return this.filterInvalidMoves(locations);
         // return new Array(0);
-    }
-
-    prawnMove(location){
-        
-        return location;
     }
 
 }
