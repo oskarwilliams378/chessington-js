@@ -10,10 +10,57 @@ export default class Bishop extends Piece {
         const location = board.findPiece(this);
         const locations = [];
         for (let i = 1; i < 8; i++) {
-            locations.push(new Square(location.row + i, location.col + i));
-            locations.push(new Square(location.row + i, location.col - i));
-            locations.push(new Square(location.row - i, location.col + i));
-            locations.push(new Square(location.row - i, location.col - i));
+            const newLocation = new Square(location.row + i, location.col + i);
+            locations.push(newLocation);
+            if (locations.length !== this.filterInvalidMoves(locations).length){
+                locations.pop();
+                break;
+            }else {
+                if (board.getPiece(newLocation)){
+                    locations.pop();
+                    break;
+                }
+            }
+        }
+        console.log(locations);
+        for (let i = 1; i < 8; i++) {
+            const newLocation = new Square(location.row - i, location.col + i);
+            locations.push(newLocation);
+            if (locations.length !== this.filterInvalidMoves(locations).length){
+                locations.pop();
+                break;
+            }else {
+                if (board.getPiece(newLocation)){
+                    locations.pop();
+                    break;
+                }
+            }
+        }
+        for (let i = 1; i < 8; i++) {
+            const newLocation = new Square(location.row + i, location.col - i);
+            locations.push(newLocation);
+            if (locations.length !== this.filterInvalidMoves(locations).length){
+                locations.pop();
+                break;
+            }else {
+                if (board.getPiece(newLocation)){
+                    locations.pop();
+                    break;
+                }
+            }
+        }
+        for (let i = 1; i < 8; i++) {
+            const newLocation = new Square(location.row - i, location.col - i);
+            locations.push(newLocation);
+            if (locations.length !== this.filterInvalidMoves(locations).length){
+                locations.pop();
+                break;
+            }else {
+                if (board.getPiece(newLocation)){
+                    locations.pop();
+                    break;
+                }
+            }
         }
         return this.filterInvalidMoves(locations);
     }
