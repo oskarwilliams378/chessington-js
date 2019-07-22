@@ -101,5 +101,25 @@ describe('Pawn', () => {
 
         moves.should.not.deep.include(Square.at(4, 3));
     });
+    it(' can take on the forwards diagonal', () => {
+        const pawn = new Pawn(Player.BLACK);
+        const blockingPiece = new Rook(Player.WHITE);
+        board.setPiece(Square.at(5, 3), pawn);
+        board.setPiece(Square.at(4, 4), blockingPiece);
+
+        const moves = pawn.getAvailableMoves(board);
+
+        moves.should.deep.include(Square.at(4, 4));
+    });
+    it(' can take on the forwards diagonal', () => {
+        const pawn = new Pawn(Player.WHITE);
+        const blockingPiece = new Rook(Player.BLACK);
+        board.setPiece(Square.at(5, 3), blockingPiece);
+        board.setPiece(Square.at(4, 4), pawn);
+
+        const moves = pawn.getAvailableMoves(board);
+
+        moves.should.deep.include(Square.at(5, 3));
+    });
 
 });

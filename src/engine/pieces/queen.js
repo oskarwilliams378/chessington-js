@@ -1,5 +1,5 @@
 import Piece from './piece';
-
+import Direction from './direction';
 export default class Queen extends Piece {
     constructor(player) {
         super(player);
@@ -7,7 +7,16 @@ export default class Queen extends Piece {
 
     getAvailableMoves(board) {
         const location = board.findPiece(this);
-        const locations = this.bishopMoves(board, location, 8).concat(this.rookMoves(board, location, 8));
-        return locations;
+        const directions = [
+            new Direction(1,1),
+            new Direction(1,-1),
+            new Direction(-1,1),
+            new Direction(-1,-1),
+            new Direction(1,0),
+            new Direction(-1,0),
+            new Direction(0,1),
+            new Direction(0,-1)
+        ];
+        return this.pieceMoves(board, location, 7, directions);
     }
 }

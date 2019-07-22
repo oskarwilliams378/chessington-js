@@ -1,5 +1,5 @@
 import Piece from './piece';
-
+import Direction from './direction';
 export default class Rook extends Piece {
     constructor(player) {
         super(player);
@@ -7,6 +7,12 @@ export default class Rook extends Piece {
 
     getAvailableMoves(board) {
         const location = board.findPiece(this);
-        return this.rookMoves(board, location, 8);
+        const directions = [
+            new Direction(1,0),
+            new Direction(-1,0),
+            new Direction(0,1),
+            new Direction(0,-1)
+        ];
+        return this.pieceMoves(board, location, 7, directions);
     }
 }

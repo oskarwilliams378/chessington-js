@@ -33,62 +33,23 @@ export default class Piece {
         
     }
 
-    bishopMoves(board, location, distance){
+    pieceMoves(board, location, distance, directions){
         const locations = [];
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row + i, location.col + i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row - i, location.col + i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row + i, location.col - i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row - i, location.col - i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        return locations;
-
-    }
-
-    rookMoves(board, location, distance){      
-        const locations = [];
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row + i, location.col);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row - i, location.col);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row, location.col + i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
-        for (let i = 1; i < distance; i++) {
-            const newLocation = new Square(location.row, location.col - i);
-            if (this.isMoveValid(board, newLocation)) {
-                locations.push(newLocation);
-            } else { break; }
-        }
+        directions.forEach(item => {
+            for (let i = 1; i <= distance; i++) {
+                const newLocation = new Square(location.row + i*item.y, location.col + i*item.x);
+                if (this.isMoveValid(board, newLocation, location)) {
+                    locations.push(newLocation);
+                } else {
+                    try{
+                        if (board.getPiece(newLocation).player !== board.getPiece(location).player){
+                            locations.push(newLocation);
+                        }
+                    } catch(e){}
+                    break;
+                }
+            }
+        });
         return locations;
     }
 }
