@@ -8,28 +8,23 @@ export default class Pawn extends Piece {
     }
 
     getAvailableMoves(board) {
-        let newLocation;
+        let multiplier = 1;
         const locations = [];
         const location = board.findPiece(this);
-        if (this.player === Player.WHITE) {
-            newLocation = new Square(location.row + 1, location.col);
-        } else {
-            newLocation = new Square(location.row - 1, location.col);
+        if (this.player === Player.BLACK) {
+            multiplier = -1;
         }
-        if (!board.getPiece(newLocation)) {
+        let newLocation = new Square(location.row + multiplier, location.col);
+        if (this.isMoveValid(board, newLocation)) {
             locations.push(newLocation);
-            if (board.findPiece(this).row === 1 || board.findPiece(this).row === 6) {
-                if (this.player === Player.WHITE) {
-                    newLocation = new Square(location.row + 2, location.col);
-                } else {
-                    newLocation = new Square(location.row - 2, location.col);
-                }
-                if (!board.getPiece(newLocation)) {
-                    locations.push(newLocation);
-                }
-            }
+            
+        } else {return locations;}
+        multiplier *= 2;
+        newLocation = new Square(location.row + multiplier, location.col);
+        if (this.isMoveValid(board, newLocation) && (location.row === 1 || location.row === 6)) {
+            locations.push(newLocation);
         }
-        return this.filterInvalidMoves(locations);
+        return locations;
         // return new Array(0);
     }
 
