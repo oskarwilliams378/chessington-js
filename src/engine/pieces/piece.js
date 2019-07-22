@@ -5,7 +5,8 @@ export default class Piece {
         this.player = player;
     }
 
-    getAvailableMoves(board) {
+    getAvailableMoves(board) { // eslint-disable-line no-unused-vars
+        board = 0;
         throw new Error('This method must be implemented, and return a list of available moves');
     }
 
@@ -45,7 +46,7 @@ export default class Piece {
                         if (board.getPiece(newLocation).player !== board.getPiece(location).player){
                             locations.push(newLocation);
                         }
-                    } catch(e){}
+                    } catch(e){} // eslint-disable-line no-empty
                     break;
                 }
             }

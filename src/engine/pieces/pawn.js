@@ -29,13 +29,13 @@ export default class Pawn extends Piece {
             if (board.getPiece(newLocation).player !== board.getPiece(location).player) {
                 locations.push(newLocation);
             }
-        } catch (e) { }
+        } catch (e) { } // eslint-disable-line no-empty
         try {
             newLocation = new Square(location.row + multiplier, location.col - 1);
             if (board.getPiece(newLocation).player !== board.getPiece(location).player) {
                 locations.push(newLocation);
             }
-        } catch (e) { }
+        } catch (e) { } // eslint-disable-line no-empty
        
         return locations;
     }
