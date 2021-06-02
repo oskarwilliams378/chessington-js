@@ -1,6 +1,7 @@
 import Piece from './piece';
 import Player from '../player';
 import Square from '../square';
+import Direction from './direction';
 
 export default class Pawn extends Piece {
     constructor(player) {
@@ -8,36 +9,33 @@ export default class Pawn extends Piece {
     }
 
     getAvailableMoves(board) {
-        let multiplier = 1;
-        const locations = [];
         const location = board.findPiece(this);
-        if (this.player === Player.BLACK) {
-            multiplier = -1;
+        const moves = [];
+        
+        const multiplier = this.player === Player.WHITE
+            ? 1
+            : -1;
+
+        const singleMove = new Square(location.row + multiplier, location.col);
+        if (board.isMoveValid(singleMove)) {
+            moves.push(singleMove);
+
+            const doubleMove = new Square(location.row + multiplier * 2, location.col);
+            if (board.isMoveValid(doubleMove) && (location.row === 1 || location.row === 6)) {
+                moves.push(doubleMove);
+            }
         }
-        let newLocation = new Square(location.row + multiplier, location.col);
-        if (this.isMoveValid(board, newLocation)) {
-            locations.push(newLocation);
-            multiplier *= 2;
-            newLocation = new Square(location.row + multiplier, location.col);
-            if (this.isMoveValid(board, newLocation) && (location.row === 1 || location.row === 6)) {
-                locations.push(newLocation);
+
+        [1, -1].forEach(takingDirection => {
+            const takingMove = new Square(location.row + multiplier, location.col + takingDirection);
+            if (board.isLocationValid(takingMove)
+                && !!board.getPiece(takingMove)
+                && board.getPiece(takingMove).player !== this.player) {
+                moves.push(takingMove);
             }
-            multiplier/=2;
-        }
-        try {
-            newLocation = new Square(location.row + multiplier, location.col + 1);
-            if (board.getPiece(newLocation).player !== board.getPiece(location).player) {
-                locations.push(newLocation);
-            }
-        } catch (e) { } // eslint-disable-line no-empty
-        try {
-            newLocation = new Square(location.row + multiplier, location.col - 1);
-            if (board.getPiece(newLocation).player !== board.getPiece(location).player) {
-                locations.push(newLocation);
-            }
-        } catch (e) { } // eslint-disable-line no-empty
+        });
        
-        return locations;
+        return moves;
     }
 
 }

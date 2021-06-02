@@ -43,4 +43,36 @@ export default class Board {
             this.currentPlayer = (this.currentPlayer === Player.WHITE ? Player.BLACK : Player.WHITE);
         }
     }
+
+    isLocationValid(location) {
+        return location.row <= 7 && location.row >= 0 && location.col <= 7 && location.col >= 0;
+    }
+
+    isMoveValid(location) {
+        return this.isLocationValid(location) && !this.getPiece(location);
+    }
+
+    findPieceMoves(piece, distance, directions) {
+        const location = this.findPiece(piece);
+        const moves = [];
+
+        directions.forEach(direction => {
+            for (let i = 1; i <= distance; i++) {
+                const newLocation = new Square(location.row + i * direction.y, location.col + i * direction.x);
+
+                if (this.isMoveValid(newLocation, location)) {
+                    moves.push(newLocation);
+                    continue;
+                }
+                
+                if (this.isLocationValid(newLocation)
+                    && !!this.getPiece(newLocation)
+                    && this.getPiece(newLocation).player !== piece.player) {
+                    moves.push(newLocation);
+                }
+                break;
+            }
+        });
+        return moves;
+    }
 }
