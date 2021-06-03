@@ -1,7 +1,7 @@
 import Piece from './piece';
 import Player from '../player';
 import Square from '../square';
-import Direction from './direction';
+import King from './king';
 
 export default class Pawn extends Piece {
     constructor(player) {
@@ -11,7 +11,7 @@ export default class Pawn extends Piece {
     getAvailableMoves(board) {
         const location = board.findPiece(this);
         const moves = [];
-        
+
         const multiplier = this.player === Player.WHITE
             ? 1
             : -1;
@@ -28,9 +28,7 @@ export default class Pawn extends Piece {
 
         [1, -1].forEach(takingDirection => {
             const takingMove = new Square(location.row + multiplier, location.col + takingDirection);
-            if (board.isLocationValid(takingMove)
-                && !!board.getPiece(takingMove)
-                && board.getPiece(takingMove).player !== this.player) {
+            if (board.isValidTakingMove(takingMove, this.player)) {
                 moves.push(takingMove);
             }
         });

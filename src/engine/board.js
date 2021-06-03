@@ -45,12 +45,19 @@ export default class Board {
         }
     }
 
-    isLocationValid(location) {
+    isLocationOnBoard(location) {
         return location.row <= 7 && location.row >= 0 && location.col <= 7 && location.col >= 0;
     }
 
-    isMoveValid(location) {
-        return this.isLocationValid(location) && !this.getPiece(location);
+    isValidTakingMove(location, player) {
+        return this.isLocationOnBoard(location)
+            && !!this.getPiece(location)
+            && this.getPiece(location).player !== player
+            && !(this.getPiece(location) instanceof King);
+    }
+
+    isValidNonTakingMove(location) {
+        return this.isLocationOnBoard(location) && !this.getPiece(location);
     }
 
     findPieceMoves(piece, distance, directions) {
@@ -61,15 +68,12 @@ export default class Board {
             for (let i = 1; i <= distance; i++) {
                 const newLocation = new Square(location.row + i * direction.y, location.col + i * direction.x);
 
-                if (this.isMoveValid(newLocation, location)) {
+                if (this.isValidNonTakingMove(newLocation, location)) {
                     moves.push(newLocation);
                     continue;
                 }
 
-                if (this.isLocationValid(newLocation)
-                    && !!this.getPiece(newLocation)
-                    && this.getPiece(newLocation).player !== piece.player
-                    && !(this.getPiece(newLocation) instanceof King)) {
+                if (this.isValidTakingMove(newLocation, piece.player)) {
                     moves.push(newLocation);
                 }
                 break;
