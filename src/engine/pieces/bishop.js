@@ -8,10 +8,10 @@ export default class Bishop extends Piece {
 
     getAvailableMoves(board) {
         const directions = [
-            new Direction(1,1),
-            new Direction(1,-1),
-            new Direction(-1,1),
-            new Direction(-1,-1)
+            new Direction(1, 1),
+            new Direction(1, -1),
+            new Direction(-1, 1),
+            new Direction(-1, -1)
         ];
         return board.findPieceMoves(this, 7, directions);
     }

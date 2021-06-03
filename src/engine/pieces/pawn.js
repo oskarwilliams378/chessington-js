@@ -31,7 +31,7 @@ export default class Pawn extends Piece {
                 moves.push(takingMove);
             }
         });
-       
+
         return moves;
     }
 
