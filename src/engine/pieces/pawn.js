@@ -16,11 +16,11 @@ export default class Pawn extends Piece {
             : -1;
 
         const singleMove = new Square(location.row + multiplier, location.col);
-        if (board.isMoveValid(singleMove)) {
+        if (board.isValidNonTakingMove(singleMove)) {
             moves.push(singleMove);
 
             const doubleMove = new Square(location.row + multiplier * 2, location.col);
-            if (board.isMoveValid(doubleMove) && (location.row === 1 || location.row === 6)) {
+            if (board.isValidNonTakingMove(doubleMove) && (location.row === 1 || location.row === 6)) {
                 moves.push(doubleMove);
             }
         }
