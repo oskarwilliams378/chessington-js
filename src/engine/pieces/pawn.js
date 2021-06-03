@@ -27,7 +27,7 @@ export default class Pawn extends Piece {
 
         [1, -1].forEach(takingDirection => {
             const takingMove = new Square(location.row + multiplier, location.col + takingDirection);
-            if (board.isValidTakingMove(takingMove, this.player)) {
+            if (board.isValidTakingMove(takingMove)) {
                 moves.push(takingMove);
             }
         });
