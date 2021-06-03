@@ -1,5 +1,6 @@
 import 'chai/register-should';
 import King from '../../../src/engine/pieces/king';
+import Rook from '../../../src/engine/pieces/rook';
 import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
 import Square from '../../../src/engine/square';
@@ -41,5 +42,17 @@ describe('King', () => {
         const expectedMoves = [Square.at(0, 1), Square.at(1, 1), Square.at(1, 0)];
 
         moves.should.deep.have.members(expectedMoves);
+    });
+
+    it('cannot move into check', () => {
+        const king = new King(Player.WHITE);
+        const rook = new Rook(Player.BLACK);
+        board.setPiece(Square.at(0, 0), king);
+        board.setPiece(Square.at(1, 1), rook);
+
+        const moves = king.getAvailableMoves(board);
+
+        moves.should.not.deep.include(Square.at(0, 1));
+        moves.should.not.deep.include(Square.at(1, 0));
     });
 });

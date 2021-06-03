@@ -25,6 +25,20 @@ export default class Board {
         return this.board[square.row][square.col];
     }
 
+    getAllPiecesForOtherPlayer() {
+        const pieces = [];
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                const piece = this.getPiece(Square.at(i, j));
+                if (piece && piece.player !== this.currentPlayer) {
+                    pieces.push(piece);
+                }
+            }
+        }
+
+        return pieces;
+    }
+
     findPiece(pieceToFind) {
         for (let row = 0; row < this.board.length; row++) {
             for (let col = 0; col < this.board[row].length; col++) {
