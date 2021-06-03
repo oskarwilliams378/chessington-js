@@ -1,6 +1,7 @@
 import Player from './player';
 import GameSettings from './gameSettings';
 import Square from './square';
+import King from './pieces/king';
 
 export default class Board {
     constructor(currentPlayer) {
@@ -64,10 +65,11 @@ export default class Board {
                     moves.push(newLocation);
                     continue;
                 }
-                
+
                 if (this.isLocationValid(newLocation)
                     && !!this.getPiece(newLocation)
-                    && this.getPiece(newLocation).player !== piece.player) {
+                    && this.getPiece(newLocation).player !== piece.player
+                    && !(this.getPiece(newLocation) instanceof King)) {
                     moves.push(newLocation);
                 }
                 break;
